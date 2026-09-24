@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { supabase } from './supabase';
 import './App.css';
@@ -28,22 +29,22 @@ function App() {
   const moveNoButton = () => {
     setNoClicks((current) => current + 1);
 
-    const buttonWidth = 120;
+    const container = document.querySelector('.buttons');
+
+    if (!container) return;
+
+    const buttonWidth = 118;
     const buttonHeight = 50;
-    const padding = 20;
+    const padding = 8;
 
-    const maxX = Math.max(
-      padding,
-      window.innerWidth - buttonWidth - padding
-    );
+    const maxX = container.clientWidth - buttonWidth - padding;
+    const maxY = container.clientHeight - buttonHeight - padding;
 
-    const maxY = Math.max(
-      padding,
-      window.innerHeight - buttonHeight - padding
-    );
+    const x =
+      padding + Math.random() * Math.max(0, maxX - padding);
 
-    const x = padding + Math.random() * (maxX - padding);
-    const y = padding + Math.random() * (maxY - padding);
+    const y =
+      padding + Math.random() * Math.max(0, maxY - padding);
 
     setNoPosition({
       left: `${x}px`,
@@ -104,10 +105,10 @@ function App() {
             style={
               noPosition
                 ? {
-                    position: 'fixed',
+                    position: 'absolute',
                     left: noPosition.left,
                     top: noPosition.top,
-                    zIndex: 1000,
+                    zIndex: 10,
                   }
                 : undefined
             }
